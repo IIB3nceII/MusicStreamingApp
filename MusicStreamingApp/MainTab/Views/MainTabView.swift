@@ -20,7 +20,26 @@ struct MainTabView: View {
                     Image(systemName: "house")
                 }
                 .tag(0)
+
+            SearchView()
+                .onTapGesture {
+                    self.selectedTabIndex = 0
+                }
+                .tabItem {
+                    Image(systemName: "magnifyingglass")
+                }
+                .tag(1)
+
+            LibraryView()
+                .onTapGesture {
+                    self.selectedTabIndex = 0
+                }
+                .tabItem {
+                    Image(systemName: "play.square.stack")
+                }
+                .tag(2)
         }
+        .tint(.primary)
     }
 }
 

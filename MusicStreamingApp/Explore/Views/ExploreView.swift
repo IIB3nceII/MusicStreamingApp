@@ -9,7 +9,29 @@ import SwiftUI
 
 struct ExploreView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ScrollView {
+            LazyVStack {
+                Grid {
+                    GridRow {
+                        GridItem(text: "Top hits")
+                        GridItem(text: "Top hits")
+                    }
+                    GridRow {
+                        GridItem(text: "Top hits")
+                        GridItem(text: "Top hits")
+                    }
+                    GridRow {
+                        GridItem(text: "Top hits")
+                        GridItem(text: "Top hits")
+                    }
+                }
+
+                ForEach(1 ... 100, id: \.self) { _ in
+                    Text("asd")
+                }
+            }
+        }
+        .padding()
     }
 }
 
