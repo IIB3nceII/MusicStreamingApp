@@ -8,27 +8,21 @@
 import SwiftUI
 
 struct ExploreView: View {
+    @ObservedObject var exploreViewModel = ExploreViewModel()
+    let columns = [
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
+
     var body: some View {
         ScrollView {
             LazyVStack {
-                Grid {
-                    GridRow {
-                        GridItem(text: "Top hits")
-                        GridItem(text: "Top hits")
-                    }
-                    GridRow {
-                        GridItem(text: "Top hits")
-                        GridItem(text: "Top hits")
-                    }
-                    GridRow {
-                        GridItem(text: "Top hits")
-                        GridItem(text: "Top hits")
+                LazyVGrid(columns: columns) {
+                    ForEach(exploreViewModel.albums) { album in
+                        GridCell(text: album.title)
                     }
                 }
-
-                ForEach(1 ... 100, id: \.self) { _ in
-                    Text("asd")
-                }
+                .padding(.horizontal)
             }
         }
         .padding()

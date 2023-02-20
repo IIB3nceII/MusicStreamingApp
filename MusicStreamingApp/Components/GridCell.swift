@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct GridItem: View {
+struct GridCell: View {
     let text: String
     let imagePath: String = ""
     let isPlaying: Bool = false
@@ -20,6 +20,8 @@ struct GridItem: View {
             Text(text)
                 .foregroundColor(.white)
                 .fontWeight(.semibold)
+                .font(.system(size: 16))
+                .lineLimit(2)
 
             Spacer()
 
@@ -33,8 +35,8 @@ struct GridItem: View {
     }
 }
 
-struct GridItem_Previews: PreviewProvider {
+struct GridCell_Previews: PreviewProvider {
     static var previews: some View {
-        GridItem(text: "Top Hits")
+        GridCell(text: "Top Hits")
     }
 }

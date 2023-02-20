@@ -2,6 +2,8 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=swift,swiftpackagemanager,firebase
 
 ### Firebase ###
+GoogleService-Info.plist
+
 .idea
 **/node_modules/*
 **/.firebaserc
