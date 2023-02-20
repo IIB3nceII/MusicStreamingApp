@@ -15,17 +15,23 @@ struct ExploreView: View {
     ]
 
     var body: some View {
-        ScrollView {
-            LazyVStack {
-                LazyVGrid(columns: columns) {
-                    ForEach(exploreViewModel.albums) { album in
-                        GridCell(text: album.title)
+        NavigationStack {
+            ScrollView {
+                LazyVStack {
+                    LazyVGrid(columns: columns) {
+                        ForEach(exploreViewModel.albums) { album in
+                            NavigationLink {
+                                AlbumView(albumId: album.albumId)
+                            } label: {
+                                GridCell(text: album.title)
+                            }
+                        }
                     }
+                    .padding(.horizontal)
                 }
-                .padding(.horizontal)
             }
+            .padding()
         }
-        .padding()
     }
 }
 

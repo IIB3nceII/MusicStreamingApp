@@ -10,7 +10,7 @@ import FirebaseFirestoreSwift
 
 struct Song: Identifiable, Decodable {
     @DocumentID var id: String?
-    var songId = UUID().uuidString
+    let songId: String
     let title: String
     let imagePath: String
     let filePath: String

@@ -12,7 +12,7 @@ class ExploreViewModel: ObservableObject {
     @Published var albums = [Album]()
 
     /// Album service instance.
-    let albumService = AlbumService()
+    private var albumService = AlbumService()
 
     /// Init, calls the ``fetchAlbums()``.
     init() {
