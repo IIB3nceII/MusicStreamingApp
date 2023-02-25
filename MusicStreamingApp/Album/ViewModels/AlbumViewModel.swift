@@ -20,4 +20,11 @@ class AlbumViewModel: ObservableObject {
             self.album = album
         }
     }
+
+    func handleMusicPlayAction(withSong song: Song, isMusicPlaying: Bool) {
+        guard let album = album else { return }
+        albumService.startStopMusic(withAlbum: album, song: song, isMusicPlaying: isMusicPlaying) { success in
+            print(success)
+        }
+    }
 }

@@ -9,20 +9,31 @@ import SwiftUI
 
 struct MusicPlayerView: View {
     @ObservedObject var musicPlayerViewModel: MusicPlayerViewModel
-    @State var isPlaying: Bool = false
 
-    init(song: Song) {
+    init(song: Song, albumId: String) {
         self.musicPlayerViewModel = MusicPlayerViewModel(song: song)
     }
 
-    func handleMusicPlayAction() {}
+    func handleMusicPlayButtonPress() {
+        self.musicPlayerViewModel.currentSong!.isPlaying ? self.musicPlayerViewModel.handleMusicPlayAction(isMusicPlaying: false) : self.musicPlayerViewModel.handleMusicPlayAction(isMusicPlaying: true)
+    }
 
     var body: some View {
-        Button {
-            self.handleMusicPlayAction()
-        } label: {
-            Image(systemName: isPlaying ? "pause.circle.fill" : "play.circle.fill")
-                .resizable()
+        VStack {
+            BackButton()
+            Button {
+                self.handleMusicPlayButtonPress()
+            } label: {
+                Image(systemName: musicPlayerViewModel.currentSong!.isPlaying ? "pause.circle.fill" : "play.circle.fill")
+                    .resizable()
+            }
         }
+        .onAppear {
+            if let song = self.musicPlayerViewModel.currentSong {
+                self.musicPlayerViewModel.fetchMusic(withFilePath: song.filePath)
+                self.musicPlayerViewModel.handleMusicPlayAction(isMusicPlaying: true)
+            }
+        }
+        .toolbar(.hidden)
     }
 }

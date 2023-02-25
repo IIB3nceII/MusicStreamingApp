@@ -34,4 +34,39 @@ struct AlbumService {
             completion(album)
         }
     }
+
+    func startStopMusic(withAlbum album: Album, song: Song, isMusicPlaying: Bool, completion: @escaping (Bool) -> Void) {
+        let albumRef = Firestore.firestore().collection("albums").document(album.albumId)
+
+        let musicData: [AnyHashable: Any] = [
+            "category": song.category,
+            "filePath": song.filePath,
+            "imagePath": song.imagePath,
+            "isPlaying": isMusicPlaying,
+            "songId": song.songId,
+            "time": song.time,
+            "title": song.title
+        ]
+
+        let albumData: [AnyHashable: Any] = [
+            "isPlaying": isMusicPlaying,
+            "songs": FieldValue.arrayUnion([musicData])
+        ]
+
+        albumRef.updateData(["songs": FieldValue.arrayRemove([musicData])]) { success in
+            if success != nil {
+                albumRef.updateData(albumData) { error in
+                    if let error = error {
+                        print("Error updating document: \(error.localizedDescription) ")
+                        completion(false)
+                    } else {
+                        print("DEBUG: Document successfully updated")
+                        completion(true)
+                    }
+                }
+            } else {
+                completion(false)
+            }
+        }
+    }
 }

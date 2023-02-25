@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AlbumView: View {
-    @ObservedObject var albumViewModel: AlbumViewModel
+    @ObservedObject private var albumViewModel: AlbumViewModel
 
     init(albumId: String) {
         self.albumViewModel = AlbumViewModel(albumId: albumId)
@@ -16,11 +16,13 @@ struct AlbumView: View {
 
     var body: some View {
         ScrollView {
+            BackButton()
+
             LazyVStack {
                 if let songs = albumViewModel.album?.songs {
                     ForEach(songs) { song in
                         NavigationLink {
-                            MusicPlayerView(song: song)
+                            MusicPlayerView(song: song, albumId: albumViewModel.album?.albumId ?? "")
                         } label: {
                             Text(song.title)
                         }
@@ -28,6 +30,7 @@ struct AlbumView: View {
                 }
             }
         }
+        .toolbar(.hidden)
     }
 }
 

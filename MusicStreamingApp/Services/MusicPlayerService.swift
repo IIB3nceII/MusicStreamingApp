@@ -15,4 +15,17 @@ struct MusicPlayerService {
             completion(url)
         }
     }
+
+    func startStopMusic(withId songId: String, isMusicPlaying: Bool, completion: @escaping (Bool) -> Void) {
+        Firestore.firestore().collection("songs").document(songId).updateData(["isPlaying": isMusicPlaying]) { error in
+            if let error = error {
+                print("Error updating document: \(error.localizedDescription) ")
+                completion(false)
+            }
+            else {
+                print("Document successfully updated")
+                completion(true)
+            }
+        }
+    }
 }

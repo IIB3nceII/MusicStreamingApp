@@ -14,13 +14,23 @@ class MusicPlayerViewModel: ObservableObject {
     var player = AVPlayer()
 
     init(song: Song) {
-        fetchMusic(withFilePath: song.filePath)
+        self.currentSong = song
     }
 
-    private func fetchMusic(withFilePath path: String) {
+    public func fetchMusic(withFilePath path: String) {
         musicPlayerService.fetchMusic(withPath: path) { url in
             self.player = AVPlayer(playerItem: AVPlayerItem(url: url))
             self.player.play()
+        }
+    }
+
+    public func handleMusicPlayAction(isMusicPlaying: Bool) {
+        guard let song = currentSong else { return }
+        musicPlayerService.startStopMusic(withId: song.songId, isMusicPlaying: isMusicPlaying) { success in
+            if success {
+                self.currentSong?.isPlaying = isMusicPlaying
+                isMusicPlaying ? self.player.play() : self.player.pause()
+            }
         }
     }
 }
