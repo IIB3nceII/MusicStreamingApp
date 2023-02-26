@@ -19,8 +19,13 @@ class MusicPlayerViewModel: ObservableObject {
 
     public func fetchMusic(withFilePath path: String) {
         musicPlayerService.fetchMusic(withPath: path) { url in
-            self.player = AVPlayer(playerItem: AVPlayerItem(url: url))
-            self.player.play()
+            do {
+                self.player = AVPlayer(playerItem: AVPlayerItem(url: url))
+                try AVAudioSession.sharedInstance().setCategory(.playback)
+                self.player.play()
+            } catch {
+                print(error.localizedDescription)
+            }
         }
     }
 

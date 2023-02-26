@@ -31,6 +31,7 @@ struct ExploreView: View {
                 }
             }
             .padding()
+            .background(Color.backgroundSecondary)
         }
     }
 }

@@ -31,6 +31,7 @@ struct AlbumView: View {
             }
         }
         .toolbar(.hidden)
+        .background(Color.backgroundSecondary)
     }
 }
 

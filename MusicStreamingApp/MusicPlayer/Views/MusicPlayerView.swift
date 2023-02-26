@@ -35,5 +35,6 @@ struct MusicPlayerView: View {
             }
         }
         .toolbar(.hidden)
+        .background(Color.backgroundSecondary)
     }
 }

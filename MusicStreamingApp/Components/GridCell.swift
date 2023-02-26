@@ -30,7 +30,7 @@ struct GridCell: View {
             }
         }
         .padding()
-        .background(Color.backgroundSecondary)
+        .background(Color.itemBackground)
         .cornerRadius(10)
     }
 }
