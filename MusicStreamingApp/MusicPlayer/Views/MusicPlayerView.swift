@@ -21,12 +21,35 @@ struct MusicPlayerView: View {
     var body: some View {
         VStack {
             BackButton()
-            Button {
-                self.handleMusicPlayButtonPress()
-            } label: {
-                Image(systemName: musicPlayerViewModel.currentSong!.isPlaying ? "pause.circle.fill" : "play.circle.fill")
-                    .resizable()
+
+            Spacer()
+
+            HStack(spacing: 12) {
+                Button {
+                    self.handleMusicPlayButtonPress()
+                } label: {
+                    Image(systemName: "backward.end.fill")
+                        .resizable()
+                        .frame(width: 40, height: 40)
+                }
+
+                Button {
+                    self.handleMusicPlayButtonPress()
+                } label: {
+                    Image(systemName: musicPlayerViewModel.currentSong!.isPlaying ? "pause.circle.fill" : "play.circle.fill")
+                        .resizable()
+                        .frame(width: 40, height: 40)
+                }
+
+                Button {
+                    self.handleMusicPlayButtonPress()
+                } label: {
+                    Image(systemName: "forward.end.fill")
+                        .resizable()
+                        .frame(width: 40, height: 40)
+                }
             }
+            .padding(.bottom, 12)
         }
         .onAppear {
             if let song = self.musicPlayerViewModel.currentSong {

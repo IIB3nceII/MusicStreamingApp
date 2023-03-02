@@ -12,7 +12,7 @@ struct Album: Identifiable, Decodable {
     @DocumentID var id: String?
     let albumId: String
     let title: String
-    let imagePath: String
+    var imagePath: String
     var isPlaying: Bool = false
     let songs: [Song]
 }

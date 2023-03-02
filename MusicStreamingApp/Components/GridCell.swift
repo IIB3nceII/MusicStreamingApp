@@ -5,17 +5,19 @@
 //  Created by Bence Papp on 2023. 02. 17..
 //
 
+import Kingfisher
 import SwiftUI
 
 struct GridCell: View {
     let text: String
-    let imagePath: String = ""
-    let isPlaying: Bool = false
+    var imagePath: String
+    var isPlaying: Bool = false
 
     var body: some View {
         HStack {
-            Image(imagePath)
+            KFImage(URL(string: imagePath))
                 .resizable()
+                .scaledToFill()
                 .frame(width: 50, height: 50)
             Text(text)
                 .foregroundColor(.white)
@@ -32,11 +34,14 @@ struct GridCell: View {
         .padding()
         .background(Color.itemBackground)
         .cornerRadius(10)
+        .onAppear {
+            print(imagePath)
+        }
     }
 }
 
 struct GridCell_Previews: PreviewProvider {
     static var previews: some View {
-        GridCell(text: "Top Hits")
+        GridCell(text: "Top Hits", imagePath: "gs://musicstreamingapp-d047f.appspot.com/images/summer-hits.png")
     }
 }

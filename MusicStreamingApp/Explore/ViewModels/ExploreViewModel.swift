@@ -14,6 +14,9 @@ class ExploreViewModel: ObservableObject {
     /// Album service instance.
     private var albumService = AlbumService()
 
+    /// Image service instance.
+    private var imageService = ImageService()
+
     /// Init, calls the ``fetchAlbums()``.
     init() {
         fetchAlbums()
@@ -23,6 +26,11 @@ class ExploreViewModel: ObservableObject {
     func fetchAlbums() {
         albumService.fetchAlbums { albums in
             self.albums = albums
+        }
+    }
+
+    func getAlbumImageUrl(path: String) {
+        imageService.getImageURL(path: path) { _ in
         }
     }
 }

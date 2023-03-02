@@ -23,7 +23,7 @@ struct ExploreView: View {
                             NavigationLink {
                                 AlbumView(albumId: album.albumId)
                             } label: {
-                                GridCell(text: album.title)
+                                GridCell(text: album.title, imagePath: album.imagePath)
                             }
                         }
                     }
