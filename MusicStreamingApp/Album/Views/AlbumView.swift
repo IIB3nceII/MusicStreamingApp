@@ -18,25 +18,33 @@ struct AlbumView: View {
         ScrollView {
             BackButton()
 
-            LazyVStack {
+            LazyVStack(spacing: 2) {
                 if let songs = albumViewModel.album?.songs {
-                    ForEach(songs) { song in
-                        NavigationLink {
-                            MusicPlayerView(song: song, albumId: albumViewModel.album?.albumId ?? "")
-                        } label: {
-                            Text(song.title)
+                    ForEach(songs, id:\.songId) { song in
+                        HStack {
+                            NavigationLink {
+                                MusicPlayerView(song: song, albumId: albumViewModel.album?.albumId ?? "")
+                            } label: {
+                                HStack(spacing: 8) {
+                                    Text(song.title)
+                                        .foregroundColor(.white)
+                                        .fontWeight(.semibold)
+                                        .truncationMode(.tail)
+                                        .lineLimit(1)
+                                }
+                                .padding()
+                            }
+
+                            Spacer()
+                            Image(systemName: "ellipsis")
+                                .foregroundColor(.secondary)
                         }
                     }
                 }
             }
+            .padding()
         }
         .toolbar(.hidden)
         .background(Color.backgroundSecondary)
-    }
-}
-
-struct AlbumView_Previews: PreviewProvider {
-    static var previews: some View {
-        AlbumView(albumId: "")
     }
 }
