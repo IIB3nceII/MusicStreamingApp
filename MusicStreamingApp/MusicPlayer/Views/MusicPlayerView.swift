@@ -5,6 +5,7 @@
 //  Created by Bence Papp on 2023. 02. 20..
 //
 
+import Kingfisher
 import SwiftUI
 
 struct MusicPlayerView: View {
@@ -22,34 +23,43 @@ struct MusicPlayerView: View {
         VStack {
             BackButton()
 
-            Spacer()
+            VStack {
+                Spacer()
 
-            HStack(spacing: 12) {
-                Button {
-                    self.handleMusicPlayButtonPress()
-                } label: {
-                    Image(systemName: "backward.end.fill")
-                        .resizable()
-                        .frame(width: 40, height: 40)
+                KFImage(musicPlayerViewModel.songImagePathUrl)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 200, height: 200)
+                    .padding(.bottom, 36)
+
+                HStack(spacing: 36) {
+                    Button {
+                        self.handleMusicPlayButtonPress()
+                    } label: {
+                        Image(systemName: "backward.end.fill")
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                    }
+
+                    Button {
+                        self.handleMusicPlayButtonPress()
+                    } label: {
+                        Image(systemName: musicPlayerViewModel.currentSong!.isPlaying ? "pause.circle.fill" : "play.circle.fill")
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                    }
+
+                    Button {
+                        self.handleMusicPlayButtonPress()
+                    } label: {
+                        Image(systemName: "forward.end.fill")
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                    }
                 }
 
-                Button {
-                    self.handleMusicPlayButtonPress()
-                } label: {
-                    Image(systemName: musicPlayerViewModel.currentSong!.isPlaying ? "pause.circle.fill" : "play.circle.fill")
-                        .resizable()
-                        .frame(width: 40, height: 40)
-                }
-
-                Button {
-                    self.handleMusicPlayButtonPress()
-                } label: {
-                    Image(systemName: "forward.end.fill")
-                        .resizable()
-                        .frame(width: 40, height: 40)
-                }
+                Spacer()
             }
-            .padding(.bottom, 12)
         }
         .onAppear {
             if let song = self.musicPlayerViewModel.currentSong {

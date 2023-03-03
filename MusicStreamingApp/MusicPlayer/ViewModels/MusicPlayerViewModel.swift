@@ -10,14 +10,21 @@ import Foundation
 
 class MusicPlayerViewModel: ObservableObject {
     @Published var currentSong: Song?
+    @Published var songImagePathUrl: URL?
     private var musicPlayerService = MusicPlayerService()
-    var player = AVPlayer()
+    private var imageService = ImageService()
+    private var player = AVPlayer()
 
     init(song: Song) {
         self.currentSong = song
     }
 
     public func fetchMusic(withFilePath path: String) {
+        if let song = currentSong {
+            imageService.getImageURL(path: song.imagePath) { url in
+                self.songImagePathUrl = url
+            }
+        }
         musicPlayerService.fetchMusic(withPath: path) { url in
             do {
                 self.player = AVPlayer(playerItem: AVPlayerItem(url: url))
